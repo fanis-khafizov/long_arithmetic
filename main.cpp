@@ -36,7 +36,7 @@ public:
         return num.size();
     }
 
-    longNum operator+(longNum& number) {
+    longNum operator+(const longNum& number) {
         longNum first = *this;
         longNum second = number;
         first.sign = true;
@@ -70,7 +70,7 @@ public:
         return second + first;
     }
 
-    longNum operator-(longNum& number) {
+    longNum operator-(const longNum& number) {
         longNum first = *this;
         longNum second = number;
         first.sign = true;
@@ -102,6 +102,12 @@ public:
         }
         longNum res = second - first;
         res.sign = 0;
+        return res;
+    }
+
+    longNum operator-() {
+        longNum res = *this;
+        res.sign = !res.sign;
         return res;
     }
 
@@ -145,18 +151,21 @@ public:
         return !(*this > number);
     }
 
-    void print() {
-        if (!sign) cout << '-';
-        for (int i = num.size() - 1; i >= 0; i--) cout << num[i];
-        cout << endl;
-    }
+    friend ostream& operator<<(ostream &out, const longNum& number);
 };
+
+ostream& operator<<(ostream &out, const longNum& number) {
+    if (!number.sign) out << '-';
+    for (int i = number.num.size() - 1; i >= 0; i--) out << number.num[i];
+    return out;
+}
 
 int main() {
     string s1, s2;
     cin >> s1 >> s2;
+
     longNum n1(s1);
     longNum n2(s2);
-    (n1 + n2).print();
+    cout << (n1 + n2);
     return 0;
 }
