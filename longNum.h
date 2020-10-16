@@ -16,10 +16,10 @@ namespace num{
         std::vector<int> num;
         bool sign;
 
-
         longNum left_shift(longNum number, int x);
-    public:
+
         longNum div2();
+    public:
         longNum();
 
         explicit longNum(std::vector<int>& n, bool sig);
